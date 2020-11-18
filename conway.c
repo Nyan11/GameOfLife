@@ -50,32 +50,31 @@ void free_mat(int **m, const unsigned int size)
 void print_mat(int **m, const unsigned int size)
 {
 	int *ptr;
-	for(int i = 0; i < (size + 2); i++)
+	printf("╔");
+	for(int i = 0; i < size; i++)
+		printf("══");
+	printf("╗\n");
+	m++;
+	for(int i = 0; i < size; i++)
 	{
+		printf("║");
 		ptr = *m;
-		for(int j = 0; j < (size + 2); j++)
+		ptr++;
+		for(int j = 0; j < size; j++)
 		{
-			if(i == 0 && j == 0)
-				printf("╔");
-			else if(i == 0 && j == (size + 1))
-				printf("╗");
-			else if(i == (size + 1) && j == 0)
-				printf("╚");
-			else if(i == (size + 1) && j == (size + 1))
-				printf("╝");
-			else if(i == 0 || i == (size + 1))
-				printf("══");
-			else if(j == 0 || j == (size + 1))
-				printf("║");
-			else if(*ptr == ALIVE)
+			if(*ptr == ALIVE)
 				printf("██");
 			else
 				printf("  ");
 			ptr++;
 		}
-		printf("\n");
+		printf("║\n");
 		m++;
 	}
+	printf("╚");
+	for(int i = 0; i < size; i++)
+		printf("══");
+	printf("╝\n");
 }
 
 int set_one_cell(int **m, const unsigned int size, int x, int y, int value)
@@ -194,11 +193,27 @@ int find_next_status(int **m, const unsigned size, unsigned int x, unsigned int 
 				return DEAD;
 	}
 }
-			
+
+
+/* Function to populate the matrice (not present in header file. */
+int randomize(unsigned int n)
+{
+	return (int)((rand()-1) / (double)RAND_MAX * n) - 1;
+}
 
 int randomize_mat()
 {
-	return (int)((rand()-1) / (double)RAND_MAX * 2) - 1;
+	return randomize(2);
+	//return randomize_bias(5);
+}
+
+int randomize_bias(unsigned int bias)
+{
+	int n = randomize(bias);
+	if(n == 0)
+		return 1;
+	else
+		return 0;
 }
 
 int main(int argc, char *argv[])

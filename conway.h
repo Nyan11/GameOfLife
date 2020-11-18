@@ -9,8 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int N = 36;
-int TOR = 0;
+int N = 46;
+int TOR = 1;
 
 #define clear() printf("\033[H\033[J")
 #define gotoxy(x,y) printf("\033[%d;%dH", (y), (x))
